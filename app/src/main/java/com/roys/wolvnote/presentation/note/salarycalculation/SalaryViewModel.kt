@@ -1,0 +1,211 @@
+package com.roys.wolvnote.presentation.note.salarycalculation
+
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.roys.wolvnote.common.Constants
+import com.roys.wolvnote.common.DateTimeHelper
+import com.roys.wolvnote.common.Resource
+import com.roys.wolvnote.common.SalaryCalculation
+import com.roys.wolvnote.data.database.NoteTable
+import com.roys.wolvnote.domain.usecase.GetNoteUseCase
+import com.roys.wolvnote.domain.usecase.InsertNoteUseCase
+import com.roys.wolvnote.domain.usecase.UpdateNoteUseCase
+import com.roys.wolvnote.presentation.ui.util.SnackBarController
+import com.roys.wolvnote.presentation.ui.util.SnackBarError
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class SalaryViewModel @Inject constructor(
+    private val insertNoteUseCase: InsertNoteUseCase,
+    private val getNoteUseCase: GetNoteUseCase,
+    private val updateNoteUseCase: UpdateNoteUseCase,
+    savedStateHandle: SavedStateHandle
+): ViewModel() {
+    private val _state = MutableStateFlow(SalaryState())
+    val state: StateFlow<SalaryState> = _state.asStateFlow()
+
+    init {
+        savedStateHandle.get<String>(Constants.NOTE_ID)?.let { noteId ->
+            getNote(noteId.toInt())
+            _state.update {
+                it.copy(
+                    isEdit = true,
+                    noteId = noteId.toInt()
+                )
+            }
+        }
+    }
+
+    fun handleEvent(viewEvent: SalaryEvent){
+        when(viewEvent){
+            is SalaryEvent.Calculate -> calculate(viewEvent.amount)
+            is SalaryEvent.InsertNote -> validateInsert()
+            is SalaryEvent.TitleUpdate -> titleUpdate(viewEvent.title)
+            is SalaryEvent.ContentUpdate -> contentUpdate(viewEvent.content)
+        }
+    }
+
+    private fun validateInsert(){
+        if(_state.value.notes.isNotEmpty()){
+            if(_state.value.isEdit){
+                prepareUpdateData()
+            }else{
+                prepareInsertData()
+            }
+        }
+    }
+
+    private fun calculate(amount: String){
+        if(amount.isNotEmpty()){
+            _state.update {
+                it.copy(
+                    notes = SalaryCalculation.calculate(amount.replace(",", ""))
+                )
+            }
+        }
+    }
+
+    private fun titleUpdate(title: String){
+        _state.update {
+            it.copy(
+                noteTitle = title
+            )
+        }
+    }
+
+    private fun contentUpdate(content: String){
+        _state.update {
+            it.copy(
+                notes = content
+            )
+        }
+    }
+
+    private fun prepareInsertData(){
+        val noteTable = NoteTable(
+            noteCreateDate = DateTimeHelper.getCurrentDateTime(),
+            noteTitle = _state.value.noteTitle,
+            noteContent = _state.value.notes,
+            noteCategory = Constants.CATEGORY_SALARY
+        )
+        insertNote(noteTable)
+    }
+
+    private fun insertNote(noteTable: NoteTable){
+        insertNoteUseCase.invoke(noteTable).onEach { result ->
+            when(result){
+                is Resource.Loading ->{
+                    _state.update {
+                        it.copy(
+                            isLoading = true
+                        )
+                    }
+                }
+                is Resource.Error -> {
+                    viewModelScope.launch {
+                        SnackBarController.sendEvent(
+                            event = SnackBarError(
+                                message = result.message ?: "An unexpected error occurred"
+                            )
+                        )
+                    }
+                }
+                is Resource.Success -> {
+                    _state.update {
+                        it.copy(
+                            isSuccess = true
+                        )
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun prepareUpdateData(){
+        val noteTable = NoteTable(
+            noteId = _state.value.noteId,
+            noteCreateDate = _state.value.createDate,
+            noteLastEditDate = DateTimeHelper.getCurrentDateTime(),
+            noteTitle = _state.value.noteTitle,
+            noteContent = _state.value.notes,
+            noteCategory = Constants.CATEGORY_SALARY
+        )
+        updateNote(noteTable)
+    }
+
+    private fun updateNote(noteTable: NoteTable){
+        updateNoteUseCase.invoke(noteTable).onEach { result ->
+            when (result) {
+                is Resource.Error -> {
+                    viewModelScope.launch {
+                        SnackBarController.sendEvent(
+                            event = SnackBarError(
+                                message = result.message ?: "An unexpected error occurred"
+                            )
+                        )
+                    }
+                }
+
+                is Resource.Loading -> {
+                    _state.update {
+                        it.copy(
+                            isLoading = true
+                        )
+                    }
+                }
+
+                is Resource.Success -> {
+                    _state.update {
+                        it.copy(
+                            isSuccess = true
+                        )
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun getNote(id: Int){
+        getNoteUseCase.invoke(id).onEach { result->
+            when(result){
+                is Resource.Error -> {
+                    viewModelScope.launch {
+                        SnackBarController.sendEvent(
+                            event = SnackBarError(
+                                message = result.message ?: "An unexpected error occurred"
+                            )
+                        )
+                    }
+                }
+                is Resource.Loading -> {
+                    _state.update {
+                        it.copy(
+                            isLoading = true
+                        )
+                    }
+                }
+                is Resource.Success -> {
+                    result.data?.let {
+                        _state.update {
+                            it.copy(
+                                notes = result.data.noteContent,
+                                noteTitle = result.data.noteTitle,
+                                createDate = result.data.noteCreateDate,
+                                lastEditDate = result.data.noteLastEditDate
+                            )
+                        }
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+}
