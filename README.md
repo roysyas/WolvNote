@@ -10,6 +10,8 @@ Taking notes Android APP
 - Performance monitoring
 - Text encryption and Keystore
 
-**Video Demo on Youtube**
+**Video Demo**
 
-https://www.youtube.com/watch?v=S2gxMeljy10
+[![Watch the video](https://img.youtube.com/vi/S2gxMeljy10/maxresdefault.jpg)](https://youtu.be/S2gxMeljy10)
+
+### [Watch this video on YouTube](https://youtu.be/S2gxMeljy10)
