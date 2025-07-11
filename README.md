@@ -12,4 +12,4 @@ Taking notes Android APP
 
 **Video Demo on Youtube**
 
-[![Video Demo](https://img.youtube.com/vi/S2gxMeljy10/0.jpg)](https://www.youtube.com/watch?v=S2gxMeljy10)
+https://www.youtube.com/watch?v=S2gxMeljy10
