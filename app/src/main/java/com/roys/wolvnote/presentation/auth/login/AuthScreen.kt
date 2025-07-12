@@ -1,5 +1,6 @@
 package com.roys.wolvnote.presentation.auth.login
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -9,6 +10,7 @@ import com.roys.wolvnote.presentation.ui.util.Screen
 
 @Composable
 fun AuthScreen(
+    paddingValues: PaddingValues,
     navController: NavController,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
@@ -22,6 +24,7 @@ fun AuthScreen(
         }
     }else{
         LoginComponent(
+            paddingValues = paddingValues,
             passwordInput = state.passwordInputText,
             hint = state.hint,
             navController = navController,

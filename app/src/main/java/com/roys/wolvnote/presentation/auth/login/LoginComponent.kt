@@ -3,6 +3,7 @@ package com.roys.wolvnote.presentation.auth.login
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,6 +30,7 @@ import com.roys.wolvnote.presentation.ui.util.Screen
 
 @Composable
 fun LoginComponent(
+    paddingValues: PaddingValues,
     passwordInput: String,
     hint: String,
     errorText: String?,
@@ -50,7 +52,10 @@ fun LoginComponent(
     }
 
     Column(
-        modifier = Modifier.padding(16.dp).fillMaxSize(),
+        modifier = Modifier
+            .padding(paddingValues)
+            .padding(16.dp)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

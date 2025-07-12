@@ -23,13 +23,13 @@ fun AppNavHost(navController: NavHostController, paddingValues: PaddingValues) {
         startDestination = Screen.AuthScreen.route
     ) {
         composable(route = Screen.AuthScreen.route) {
-            AuthScreen(navController)
+            AuthScreen(paddingValues, navController)
         }
         composable(route = Screen.SettingPasswordScreen.route) {
-            SettingPasswordScreen(navController)
+            SettingPasswordScreen(paddingValues, navController)
         }
         composable(route = Screen.MainScreen.route){
-            MainScreen(navController)
+            MainScreen(paddingValues, navController)
         }
         composable(
             route = Screen.CreateCheckedListScreen.route + "?{${Constants.NOTE_ID}}",
@@ -41,7 +41,7 @@ fun AppNavHost(navController: NavHostController, paddingValues: PaddingValues) {
                 }
             )
         ){
-            CreateCheckedListScreen(navController)
+            CreateCheckedListScreen(paddingValues, navController)
         }
         composable(
             route = Screen.CreateNoteScreen.route + "?{${Constants.NOTE_ID}}",
@@ -53,7 +53,7 @@ fun AppNavHost(navController: NavHostController, paddingValues: PaddingValues) {
                 }
             )
         ){
-            CreateNoteScreen(navController)
+            CreateNoteScreen(paddingValues, navController)
         }
         composable(
             route = Screen.CreateSalaryScreen.route + "?{${Constants.NOTE_ID}}",
@@ -65,7 +65,7 @@ fun AppNavHost(navController: NavHostController, paddingValues: PaddingValues) {
                 }
             )
         ){
-            CreateSalaryScreen((navController))
+            CreateSalaryScreen(paddingValues, navController)
         }
         composable(
             route = Screen.CreateDrawScreen.route + "?{${Constants.NOTE_ID}}",
@@ -77,7 +77,7 @@ fun AppNavHost(navController: NavHostController, paddingValues: PaddingValues) {
                 }
             )
         ){
-            CreateDrawScreen(navController)
+            CreateDrawScreen(paddingValues, navController)
         }
     }
 }

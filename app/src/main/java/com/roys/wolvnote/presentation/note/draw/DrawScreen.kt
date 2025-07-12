@@ -2,14 +2,12 @@ package com.roys.wolvnote.presentation.note.draw
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +27,7 @@ import com.roys.wolvnote.presentation.note.draw.component.DrawView
 
 @Composable
 fun CreateDrawScreen(
+    paddingValues: PaddingValues,
     navController: NavController,
     viewModel: DrawViewModel = hiltViewModel()
 ){
@@ -44,7 +43,7 @@ fun CreateDrawScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.safeDrawing)
+            .padding(paddingValues)
             .padding(8.dp)
     ) {
         if(state.drawData.noteTitle.isEmpty()){

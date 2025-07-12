@@ -2,13 +2,11 @@ package com.roys.wolvnote.presentation.note.checklist
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -37,6 +35,7 @@ import java.util.UUID
 
 @Composable
 fun CreateCheckedListScreen(
+    paddingValues: PaddingValues,
     navController: NavController,
     viewModel: CheckListViewModel = hiltViewModel()
 ) {
@@ -56,7 +55,7 @@ fun CreateCheckedListScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.safeDrawing)
+            .padding(paddingValues)
             .padding(8.dp)
     ) {
         if(state.checkListData.noteTitle.isEmpty()){

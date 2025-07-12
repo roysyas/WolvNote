@@ -2,14 +2,12 @@ package com.roys.wolvnote.presentation.note.salarycalculation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -41,6 +39,7 @@ import com.roys.wolvnote.presentation.ui.composableicon.SaveIcon
 
 @Composable
 fun CreateSalaryScreen(
+    paddingValues: PaddingValues,
     navController: NavController,
     viewModel: SalaryViewModel = hiltViewModel()
 ){
@@ -58,7 +57,7 @@ fun CreateSalaryScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.safeDrawing)
+            .padding(paddingValues)
             .padding(8.dp)
     ){
         if(state.noteTitle.isEmpty()){

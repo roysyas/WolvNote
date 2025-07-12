@@ -2,6 +2,7 @@ package com.roys.wolvnote.presentation.auth.settingpassword
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +34,7 @@ import com.roys.wolvnote.presentation.ui.util.Screen
 
 @Composable
 fun SettingPasswordScreen(
+    paddingValues: PaddingValues,
     navController: NavController,
     viewModel: SettingPasswordViewModel = hiltViewModel()
 ) {
@@ -51,7 +53,9 @@ fun SettingPasswordScreen(
     }
 
     Column(
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier
+            .padding(paddingValues)
+            .padding(16.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,

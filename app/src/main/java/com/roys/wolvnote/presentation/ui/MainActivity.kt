@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -43,6 +45,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 Scaffold(
+                    contentWindowInsets = WindowInsets.safeDrawing,
                     snackbarHost = {
                         SnackbarHost(
                             hostState = snackBarHostState

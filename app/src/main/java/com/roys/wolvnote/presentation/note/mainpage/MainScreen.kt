@@ -1,12 +1,9 @@
 package com.roys.wolvnote.presentation.note.mainpage
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +24,7 @@ import com.roys.wolvnote.presentation.ui.util.Screen
 
 @Composable
 fun MainScreen(
+    paddingValues: PaddingValues,
     navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -43,8 +41,8 @@ fun MainScreen(
 
     Box(modifier = Modifier
         .fillMaxSize()
+        .padding(paddingValues)
         .padding(8.dp)
-        .windowInsetsPadding(WindowInsets.safeDrawing)
     ) {
         if(state.isEmpty){
             Text(
