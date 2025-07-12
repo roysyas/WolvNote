@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [NoteTable::class, PasswordTable::class],
     version = 1,
-    exportSchema = true,
+    exportSchema = false,
     autoMigrations = []
 )
 
