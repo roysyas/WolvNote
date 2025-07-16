@@ -27,21 +27,21 @@ fun SelectWeightComponent(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+        horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
     ) {
         weights.fastForEach { weight ->
             val isSelected = selectedWeight == weight
 
             Canvas(
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(36.dp)
                     .border(width = 1.dp, color = if(isSelected) MaterialTheme.colorScheme.primary else Color.Transparent)
                     .clickable{onSelectWeight(weight)}
             ) {
                 drawLine(
                     color = Color.Black,
                     strokeWidth = weight,
-                    start = Offset(x = 0.dp.toPx(), y = 40.dp.toPx()/2),
-                    end = Offset(x = 40.dp.toPx(), y = 40.dp.toPx()/2)
+                    start = Offset(x = 0.dp.toPx(), y = 36.dp.toPx()/2),
+                    end = Offset(x = 36.dp.toPx(), y = 36.dp.toPx()/2)
                 )
             }
         }

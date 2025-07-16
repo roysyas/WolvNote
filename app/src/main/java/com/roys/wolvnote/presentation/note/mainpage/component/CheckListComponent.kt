@@ -1,5 +1,6 @@
 package com.roys.wolvnote.presentation.note.mainpage.component
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,11 +42,14 @@ fun CheckListComponent(
         modifier = modifier.padding(4.dp)
     ) {
         Column{
-            Column(modifier = modifier.padding(6.dp)) {
+            Column(
+                modifier = modifier.padding(6.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
                 data.forEachIndexed { index, item ->
                     if (index < 5) {
                         Row(
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.Top
                         ) {
                             Checkbox(
                                 checked = item.checked,
@@ -57,6 +61,7 @@ fun CheckListComponent(
                                 )
                             )
                             Text(
+                                modifier = Modifier.padding(0.dp, 6.dp, 0.dp, 0.dp),
                                 text = item.text,
                                 color = MaterialTheme.colorScheme.primary
                             )

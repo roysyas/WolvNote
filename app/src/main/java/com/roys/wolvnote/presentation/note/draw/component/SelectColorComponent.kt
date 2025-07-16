@@ -30,7 +30,7 @@ fun SelectColorComponent(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+        horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally)
     ) {
         colors.fastForEach { color ->
             val isSelected = selectedColor == color
@@ -41,7 +41,7 @@ fun SelectColorComponent(
                         scaleX = scale
                         scaleY = scale
                     }
-                    .size(40.dp)
+                    .size(36.dp)
                     .clip(CircleShape)
                     .background(color)
                     .border(
