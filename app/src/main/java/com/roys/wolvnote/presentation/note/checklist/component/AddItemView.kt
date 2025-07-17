@@ -1,6 +1,6 @@
 package com.roys.wolvnote.presentation.note.checklist.component
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -43,7 +43,7 @@ fun AddItemView(
     var checked by remember { mutableStateOf(false) }
     var itemText by remember { mutableStateOf("") }
 
-    Card (
+    Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(6.dp),
@@ -51,58 +51,59 @@ fun AddItemView(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondary
         )
-    ){
-        Column {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(
+            modifier = Modifier.padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        )
+        {
+            Checkbox(
+                checked = checked,
+                onCheckedChange = {
+                    checked = it
+                }
             )
-            {
-                Checkbox(
-                    checked = checked,
-                    onCheckedChange = {
-                        checked = it
-                    }
-                )
-                OutlinedTextField(
-                    modifier = Modifier.weight(1f),
-                    value = itemText,
-                    onValueChange = {
-                        itemText = it
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        capitalization = KeyboardCapitalization.None,
-                        autoCorrectEnabled = true,
-                        keyboardType = KeyboardType.Text,
-                        imeAction = ImeAction.Done
-                    ),
-                    label = {
-                        Text(
-                            text = inputText,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    },
-                    textStyle = TextStyle(color = MaterialTheme.colorScheme.primary)
-                )
-                IconButton(
-                    onClick = {
-                        if(itemText.isNotEmpty()){
-                            onClick(itemText, checked)
-                            itemText = ""
-                            checked = false
+            OutlinedTextField(
+                modifier = Modifier.weight(1f),
+                value = itemText,
+                onValueChange = {
+                    itemText = it
+                },
+                keyboardOptions = KeyboardOptions(
+                    capitalization = KeyboardCapitalization.None,
+                    autoCorrectEnabled = true,
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Done
+                ),
+                label = {
+                    Text(
+                        text = inputText,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                },
+                textStyle = TextStyle(color = MaterialTheme.colorScheme.primary),
+                trailingIcon = {
+                    AnimatedVisibility(
+                        visible = itemText.isNotBlank()
+                    ) {
+                        IconButton(
+                            onClick = {
+                                onClick(itemText, checked)
+                                itemText = ""
+                                checked = false
+                            }
+                        ) {
+                            Icon(
+                                imageVector = SendIcon(),
+                                contentDescription = addItemText,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
                         }
                     }
-                ) {
-                    Icon(
-                        imageVector = SendIcon(),
-                        contentDescription = addItemText,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
                 }
-            }
-            if(list.isNotEmpty()){
+            )
+            if (list.isNotEmpty()) {
                 IconButton(
-                    modifier = Modifier.align(Alignment.End),
                     onClick = {
                         insertNoteClick()
                     }

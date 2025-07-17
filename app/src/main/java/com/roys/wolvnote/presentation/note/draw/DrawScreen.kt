@@ -85,6 +85,7 @@ fun CreateDrawScreen(
                     onAction = viewModel::handleEvent
                 )
                 DrawMenu(
+                    paths = state.drawData.contentData.pathDataList,
                     selectedColor = state.selectedColor,
                     colors = Constants.allColors,
                     selectedWeight = state.selectedWeight,

@@ -1,7 +1,7 @@
 package com.roys.wolvnote.presentation.note.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,12 +30,12 @@ import com.roys.wolvnote.presentation.ui.composableicon.SendIcon
 
 @Composable
 fun BoxScope.InputTitle(
-    onClick: (String)-> Unit
+    onClick: (String) -> Unit
 ) {
     val titleText = stringResource(R.string.input_title)
     var noteTitle by remember { mutableStateOf("") }
 
-    Card (
+    Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(6.dp)
@@ -44,42 +44,45 @@ fun BoxScope.InputTitle(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondary
         )
-    ){
-        Row(
-            modifier = Modifier.padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            OutlinedTextField(
-                modifier = Modifier.weight(1f),
-                value = noteTitle,
-                onValueChange = {
-                    noteTitle = it
-                },
-                keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.None,
-                    autoCorrectEnabled = true,
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
-                ),
-                label = {
-                    Text(
-                        text = titleText,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                },
-                textStyle = TextStyle(color = MaterialTheme.colorScheme.primary)
-            )
-            IconButton(
-                onClick = {
-                    onClick(noteTitle)
-                }
-            ) {
-                Icon(
-                    imageVector = SendIcon(),
-                    contentDescription = titleText,
-                    tint = MaterialTheme.colorScheme.primary
+    ) {
+        OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            value = noteTitle,
+            onValueChange = {
+                noteTitle = it
+            },
+            keyboardOptions = KeyboardOptions(
+                capitalization = KeyboardCapitalization.None,
+                autoCorrectEnabled = true,
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            label = {
+                Text(
+                    text = titleText,
+                    color = MaterialTheme.colorScheme.primary
                 )
+            },
+            textStyle = TextStyle(color = MaterialTheme.colorScheme.primary),
+            trailingIcon = {
+                AnimatedVisibility(
+                    visible = noteTitle.isNotBlank()
+                ) {
+                    IconButton(
+                        onClick = {
+                            onClick(noteTitle)
+                        }
+                    ) {
+                        Icon(
+                            imageVector = SendIcon(),
+                            contentDescription = titleText,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
             }
-        }
+        )
     }
 }

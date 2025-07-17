@@ -1,7 +1,7 @@
 package com.roys.wolvnote.presentation.note.salarycalculation.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.BoxScope
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -48,46 +48,46 @@ fun BoxScope.InputSalary(
             containerColor = MaterialTheme.colorScheme.secondary
         )
     ){
-        Row(
-            modifier = Modifier.padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        )
-        {
-            OutlinedTextField(
-                modifier = Modifier.weight(1f),
-                value = salaryAmount,
-                onValueChange = {
-                    val formattedText = digitsFormater(it.text)
-                    salaryAmount = TextFieldValue(
-                        text = formattedText,
-                        selection = TextRange(formattedText.length)
-                    )
-                },
-                keyboardOptions = KeyboardOptions(
-                    capitalization = KeyboardCapitalization.None,
-                    autoCorrectEnabled = true,
-                    keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Done
-                ),
-                label = {
-                    Text(
-                        text = inputSalary,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                },
-                textStyle = TextStyle(color = MaterialTheme.colorScheme.primary)
-            )
-            IconButton(
-                onClick = {
-                    onClick(salaryAmount.text)
-                }
-            ) {
-                Icon(
-                    imageVector = SendIcon(),
-                    contentDescription = inputSalary,
-                    tint = MaterialTheme.colorScheme.primary
+        OutlinedTextField(
+            modifier = Modifier.padding(8.dp).fillMaxWidth(),
+            value = salaryAmount,
+            onValueChange = {
+                val formattedText = digitsFormater(it.text)
+                salaryAmount = TextFieldValue(
+                    text = formattedText,
+                    selection = TextRange(formattedText.length)
                 )
+            },
+            keyboardOptions = KeyboardOptions(
+                capitalization = KeyboardCapitalization.None,
+                autoCorrectEnabled = true,
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
+            label = {
+                Text(
+                    text = inputSalary,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            },
+            textStyle = TextStyle(color = MaterialTheme.colorScheme.primary),
+            trailingIcon = {
+                AnimatedVisibility(
+                    visible = salaryAmount.text.isNotBlank()
+                ) {
+                    IconButton(
+                        onClick = {
+                            onClick(salaryAmount.text)
+                        }
+                    ) {
+                        Icon(
+                            imageVector = SendIcon(),
+                            contentDescription = inputSalary,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
             }
-        }
+        )
     }
 }

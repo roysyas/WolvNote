@@ -1,5 +1,6 @@
 package com.roys.wolvnote.presentation.note.draw.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.roys.wolvnote.R
+import com.roys.wolvnote.domain.model.PathData
 import com.roys.wolvnote.presentation.note.component.IconTextButton
 import com.roys.wolvnote.presentation.note.component.TextButton
 import com.roys.wolvnote.presentation.note.draw.DrawEvent
@@ -26,6 +28,7 @@ import com.roys.wolvnote.presentation.ui.composableicon.SaveIcon
 
 @Composable
 fun DrawMenu(
+    paths: List<PathData>,
     selectedColor: Color,
     colors: List<Color>,
     selectedWeight: Float,
@@ -67,22 +70,30 @@ fun DrawMenu(
                     CleanIcon()
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                IconButton(
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 6.dp),
-                    onClick = {onClick(DrawEvent.InsertNote)}
+                AnimatedVisibility(
+                    visible = paths.isNotEmpty()
                 ) {
-                    Icon(
-                        imageVector = SaveIcon(),
-                        contentDescription = save,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+                    Row(
+                        verticalAlignment = Alignment.Bottom
+                    ) {
+                        IconButton(
+                            modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 6.dp),
+                            onClick = {onClick(DrawEvent.InsertNote)}
+                        ) {
+                            Icon(
+                                imageVector = SaveIcon(),
+                                contentDescription = save,
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                        TextButton(
+                            imageVector = GalleryIcon(),
+                            label = saveExport,
+                            contentColor = MaterialTheme.colorScheme.primary,
+                            onClick = {onClick(DrawEvent.InsertAndExport)}
+                        )
+                    }
                 }
-                TextButton(
-                    imageVector = GalleryIcon(),
-                    label = saveExport,
-                    contentColor = MaterialTheme.colorScheme.primary,
-                    onClick = {onClick(DrawEvent.InsertAndExport)}
-                )
             }
         }
     }
