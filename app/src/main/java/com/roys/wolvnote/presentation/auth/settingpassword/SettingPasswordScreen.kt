@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +22,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -43,6 +46,7 @@ fun SettingPasswordScreen(
     val createPassword = stringResource(R.string.create_password)
     val createHint = stringResource(R.string.create_hint)
     val submit = stringResource(R.string.submit)
+    val focusManager = LocalFocusManager.current
 
     if(state.isSuccess){
         navController.navigate(Screen.AuthScreen.route){
@@ -70,8 +74,11 @@ fun SettingPasswordScreen(
                 capitalization = KeyboardCapitalization.None,
                 autoCorrectEnabled = false,
                 keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Next
             ),
+            keyboardActions = KeyboardActions {
+                focusManager.moveFocus(FocusDirection.Next)
+            },
             label = {
                 Text(
                     text = createPassword,
@@ -90,8 +97,11 @@ fun SettingPasswordScreen(
                 capitalization = KeyboardCapitalization.None,
                 autoCorrectEnabled = false,
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Send
             ),
+            keyboardActions = KeyboardActions {
+                viewModel.handleEvent(SettingPasswordEvent.InsertPassword)
+            },
             label = {
                 Text(
                     text = createHint,

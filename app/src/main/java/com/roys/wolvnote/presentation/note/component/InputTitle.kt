@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -57,8 +58,11 @@ fun BoxScope.InputTitle(
                 capitalization = KeyboardCapitalization.None,
                 autoCorrectEnabled = true,
                 keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
+                imeAction = ImeAction.Send
             ),
+            keyboardActions = KeyboardActions {
+                onClick(noteTitle)
+            },
             label = {
                 Text(
                     text = titleText,
