@@ -34,7 +34,7 @@ fun CheckListComponent(
 
     Card (
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -57,7 +57,8 @@ fun CheckListComponent(
                                 enabled = false,
                                 colors = CheckboxDefaults.colors(
                                     disabledUncheckedColor = MaterialTheme.colorScheme.primary,
-                                    disabledCheckedColor = MaterialTheme.colorScheme.primary
+                                    disabledCheckedColor = MaterialTheme.colorScheme.primary,
+                                    checkmarkColor = MaterialTheme.colorScheme.secondary
                                 )
                             )
                             Text(

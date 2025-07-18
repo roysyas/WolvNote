@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -31,7 +32,7 @@ fun CheckListItemView(
 
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -43,7 +44,12 @@ fun CheckListItemView(
                 checked = checkListItem.checked,
                 onCheckedChange = {
                     onCheckedChange()
-                }
+                },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = MaterialTheme.colorScheme.primary,
+                    checkmarkColor = MaterialTheme.colorScheme.secondary,
+                    uncheckedColor = MaterialTheme.colorScheme.primary
+                )
             )
             Text(
                 text = checkListItem.text,

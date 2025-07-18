@@ -3,6 +3,7 @@ package com.roys.wolvnote.presentation.note.draw.component
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +24,9 @@ fun SelectWeightComponent(
     weights: List<Float>,
     onSelectWeight: (Float) -> Unit
 ) {
+
+    val isDark = isSystemInDarkTheme()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,7 +42,7 @@ fun SelectWeightComponent(
                     .clickable{onSelectWeight(weight)}
             ) {
                 drawLine(
-                    color = Color.Black,
+                    color = if(isDark)Color.White else Color.Black,
                     strokeWidth = weight,
                     start = Offset(x = 0.dp.toPx(), y = 36.dp.toPx()/2),
                     end = Offset(x = 36.dp.toPx(), y = 36.dp.toPx()/2)

@@ -43,7 +43,7 @@ fun BoxScope.InputTitle(
             .align(Alignment.BottomStart),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         OutlinedTextField(

@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -50,7 +51,7 @@ fun AddItemView(
             .padding(6.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary
+            containerColor = MaterialTheme.colorScheme.primaryContainer
         )
     ) {
         Row(
@@ -62,7 +63,12 @@ fun AddItemView(
                 checked = checked,
                 onCheckedChange = {
                     checked = it
-                }
+                },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = MaterialTheme.colorScheme.primary,
+                    checkmarkColor = MaterialTheme.colorScheme.secondary,
+                    uncheckedColor = MaterialTheme.colorScheme.primary,
+                )
             )
             OutlinedTextField(
                 modifier = Modifier.weight(1f),

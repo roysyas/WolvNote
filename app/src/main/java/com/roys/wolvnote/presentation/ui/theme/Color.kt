@@ -11,3 +11,9 @@ val Red40 = Color(0xFFcc0000)
 
 val White = Color(0xFFffffff)
 val Transparent = Color(android.graphics.Color.TRANSPARENT)
+
+val Green45 = Color(0xFF3caa62)
+val Green50 = Color(0xFF42bd6d)
+val Red80 = Color(0xFFff9999)
+val Grey90 = Color(0xFFe6e6e6)
+val Black20 = Color(0xFF333333)

@@ -84,6 +84,7 @@ fun CreateDrawScreen(
                     currentPath = state.currentPath,
                     onAction = viewModel::handleEvent
                 )
+                Spacer(modifier = Modifier.height(8.dp))
                 DrawMenu(
                     paths = state.drawData.contentData.pathDataList,
                     selectedColor = state.selectedColor,

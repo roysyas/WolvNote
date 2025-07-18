@@ -1,6 +1,7 @@
 package com.roys.wolvnote.presentation.note.draw.component
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ fun DrawView(
         modifier = modifier
             .clipToBounds()
             .border(width = 1.dp, color = MaterialTheme.colorScheme.primary)
+            .background(color = MaterialTheme.colorScheme.secondary)
             .pointerInput(true){
                 detectDragGestures(
                     onDragStart = { offset ->

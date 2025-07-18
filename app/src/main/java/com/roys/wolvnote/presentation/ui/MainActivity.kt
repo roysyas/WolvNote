@@ -29,12 +29,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         checkFirstInstall(this)
         enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.light(
-                scrim = Color.TRANSPARENT,
+            statusBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.TRANSPARENT,
                 darkScrim = Color.TRANSPARENT
             ),
-            navigationBarStyle = SystemBarStyle.light(
-                scrim = Color.TRANSPARENT,
+            navigationBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.TRANSPARENT,
                 darkScrim = Color.TRANSPARENT
             )
         )
