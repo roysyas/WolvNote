@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,8 +42,8 @@ fun AddItemView(
     val addItemText = stringResource(R.string.add_item)
     val inputText = stringResource(R.string.input_checklist)
     val save = stringResource(R.string.save)
-    var checked by remember { mutableStateOf(false) }
-    var itemText by remember { mutableStateOf("") }
+    var checked by rememberSaveable { mutableStateOf(false) }
+    var itemText by rememberSaveable { mutableStateOf("") }
 
     Card(
         modifier = Modifier
