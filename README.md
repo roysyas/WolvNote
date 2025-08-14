@@ -19,3 +19,5 @@ Taking notes Android APP
 ### [Watch this video on YouTube](https://youtu.be/S2gxMeljy10)
 
 ### [Download on PlayStore](https://play.google.com/store/apps/details?id=com.roys.wolvnote)
+
+***For project in Compose Multiplatform please visit [https://github.com/roysyas/WolvNoteKMP](https://github.com/roysyas/WolvNoteKMP)***
