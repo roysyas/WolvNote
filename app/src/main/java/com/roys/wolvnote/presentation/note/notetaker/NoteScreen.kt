@@ -49,7 +49,7 @@ fun CreateNoteScreen(
         navController.previousBackStackEntry
             ?.savedStateHandle
             ?.set(Constants.REFRESH, true)
-        navController.popBackStack()
+        navController.navigateUp()
     }
 
     Box(
