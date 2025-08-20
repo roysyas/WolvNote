@@ -1,6 +1,10 @@
 package com.roys.wolvnote.presentation.note.mainpage
 
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -31,6 +35,19 @@ fun MainScreen(
     val state by viewModel.state.collectAsState()
     val emptyNotes = stringResource(R.string.empty_notes)
 
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission(),
+        onResult = { granted ->
+            viewModel.handleEvent(HomeEvent.RequestPermission(granted))
+        }
+    )
+
+    LaunchedEffect(state.isGranted) {
+        if(!state.isGranted){
+            launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
+
     LaunchedEffect(key1 = Unit) {
         navController.currentBackStackEntry?.savedStateHandle?.getStateFlow(Constants.REFRESH, false)?.collect { result->
             if(result){
@@ -58,18 +75,42 @@ fun MainScreen(
                 modifier = Modifier.align(Alignment.Center)
             )
         }
-        if(state.noteList.isNotEmpty()){
-            NoteItem(
-                listNoteTable = state.noteList,
-                navController = navController,
-                onDelete = {data->
-                    viewModel.handleEvent(HomeEvent.OnDelete(data))
+
+        Column {
+            state.currentWeather?.let {
+                Column(
+                    modifier = Modifier
+                        .padding(0.dp, 0.dp, 8.dp, 8.dp)
+                        .align(Alignment.End)
+                ) {
+                    Text(
+                        text = it.temperature,
+                        color = MaterialTheme.colorScheme.outlineVariant,
+                        modifier = Modifier
+                            .align(Alignment.End)
+                    )
+                    Text(
+                        text = it.weather,
+                        color = MaterialTheme.colorScheme.outlineVariant,
+                        modifier = Modifier
+                            .align(Alignment.End)
+                    )
                 }
-            )
+            }
+            if (state.noteList.isNotEmpty()) {
+                NoteItem(
+                    listNoteTable = state.noteList,
+                    navController = navController,
+                    onDelete = { data ->
+                        viewModel.handleEvent(HomeEvent.OnDelete(data))
+                    }
+                )
+            }
         }
+
         Box(
             modifier = Modifier
-                .padding(0.dp,0.dp,8.dp,8.dp)
+                .padding(0.dp, 0.dp, 8.dp, 8.dp)
                 .align(Alignment.BottomEnd)
         ){
             CustomFloatingButton(

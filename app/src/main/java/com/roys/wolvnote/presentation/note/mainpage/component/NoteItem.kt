@@ -25,11 +25,11 @@ import com.roys.wolvnote.presentation.ui.util.Screen
 fun NoteItem(
     listNoteTable: List<NoteTable>,
     navController: NavController,
-    onDelete: (NoteTable)-> Unit
+    onDelete: (Int?)-> Unit
 ) {
     val confirmationMessage = stringResource(R.string.delete_message)
     var showDialog by rememberSaveable { mutableStateOf(false) }
-    var deletedItem by rememberSaveable { mutableStateOf(NoteTable()) }
+    var deletedItem: Int? by rememberSaveable { mutableStateOf(0) }
 
     when (showDialog) {
         true -> ConfirmationDialog(
@@ -37,12 +37,12 @@ fun NoteItem(
             imageVector = Icons.Default.Delete,
             onDismiss = {
                 showDialog = false
-                deletedItem = NoteTable()
+                deletedItem = NoteTable().noteId
             },
             onConfirm = {
                 showDialog = false
                 onDelete(deletedItem)
-                deletedItem = NoteTable()
+                deletedItem = NoteTable().noteId
             }
         )
         false -> {}
@@ -62,7 +62,7 @@ fun NoteItem(
                             onClick = {navController.navigate(Screen.CreateCheckedListScreen.route + "?${item.noteId}")},
                             onLongClick = {
                                 showDialog = true
-                                deletedItem = item
+                                deletedItem = item.noteId
                             }
                         ),
                         noteContent = item.noteContent,
@@ -76,7 +76,7 @@ fun NoteItem(
                             onClick = {navController.navigate(Screen.CreateNoteScreen.route + "?${item.noteId}")},
                             onLongClick = {
                                 showDialog = true
-                                deletedItem = item
+                                deletedItem = item.noteId
                             }
                         ),
                         noteContent = item.noteContent,
@@ -90,7 +90,7 @@ fun NoteItem(
                             onClick = {navController.navigate(Screen.CreateSalaryScreen.route + "?${item.noteId}")},
                             onLongClick = {
                                 showDialog = true
-                                deletedItem = item
+                                deletedItem = item.noteId
                             }
                         ),
                         noteContent = item.noteContent,
@@ -104,7 +104,7 @@ fun NoteItem(
                             onClick = {navController.navigate(Screen.CreateDrawScreen.route + "?${item.noteId}")},
                             onLongClick = {
                                 showDialog = true
-                                deletedItem = item
+                                deletedItem = item.noteId
                             }
                         ),
                         noteTitle = item.noteTitle,

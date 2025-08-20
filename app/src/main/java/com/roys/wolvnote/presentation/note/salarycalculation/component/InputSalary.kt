@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.Saver
+import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -36,7 +38,17 @@ import com.roys.wolvnote.presentation.ui.composableicon.SendIcon
 fun BoxScope.InputSalary(
     onClick:(String) -> Unit
 ){
-    var salaryAmount by rememberSaveable { mutableStateOf(TextFieldValue("")) }
+    val textFieldValueSaver: Saver<TextFieldValue, *> = listSaver(
+        save = { listOf(it.text, it.selection.start, it.selection.end) },
+        restore = {
+            TextFieldValue(
+                text = it[0] as String,
+                selection = TextRange(it[1] as Int, it[2] as Int)
+            )
+        }
+    )
+
+    var salaryAmount by rememberSaveable(stateSaver = textFieldValueSaver) { mutableStateOf(TextFieldValue("")) }
     val inputSalary = stringResource(R.string.input_salary)
 
     Card(

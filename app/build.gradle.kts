@@ -87,6 +87,15 @@ dependencies {
     //Kotlin Serialization
     implementation(libs.kotlinx.serialization.json)
 
+    //Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+
+    //Play Services
+    implementation(libs.play.services.location)
+
     //Firebase
     implementation(platform(libs.firebase.bom))
     //Crashlytics
