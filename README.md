@@ -9,6 +9,7 @@ Taking notes Android APP
 - Crashlytics
 - Performance monitoring
 - Text encryption and Keystore
+- Ktor rest API
 
 
 
