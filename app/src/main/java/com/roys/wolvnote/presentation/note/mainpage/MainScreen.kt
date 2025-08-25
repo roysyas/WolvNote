@@ -1,12 +1,10 @@
 package com.roys.wolvnote.presentation.note.mainpage
 
-import android.Manifest
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,6 +21,7 @@ import androidx.navigation.NavController
 import com.roys.wolvnote.R
 import com.roys.wolvnote.common.Constants
 import com.roys.wolvnote.presentation.note.mainpage.component.CustomFloatingButton
+import com.roys.wolvnote.presentation.note.mainpage.component.LocationPermission
 import com.roys.wolvnote.presentation.note.mainpage.component.NoteItem
 import com.roys.wolvnote.presentation.ui.util.Screen
 
@@ -35,18 +34,12 @@ fun MainScreen(
     val state by viewModel.state.collectAsState()
     val emptyNotes = stringResource(R.string.empty_notes)
 
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission(),
-        onResult = { granted ->
-            viewModel.handleEvent(HomeEvent.RequestPermission(granted))
+    LocationPermission(
+        isGranted = state.isGranted,
+        onGranted = {
+            viewModel.handleEvent(HomeEvent.RequestPermission(it))
         }
     )
-
-    LaunchedEffect(state.isGranted) {
-        if(!state.isGranted){
-            launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
-    }
 
     LaunchedEffect(key1 = Unit) {
         navController.currentBackStackEntry?.savedStateHandle?.getStateFlow(Constants.REFRESH, false)?.collect { result->
@@ -82,6 +75,7 @@ fun MainScreen(
                     modifier = Modifier
                         .padding(0.dp, 0.dp, 8.dp, 8.dp)
                         .align(Alignment.End)
+                        .fillMaxWidth()
                 ) {
                     Text(
                         text = it.temperature,
