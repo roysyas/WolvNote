@@ -2,7 +2,7 @@
 agp = "8.12.1"
 coreTesting = "2.2.0"
 firebaseBom = "34.1.0"
-hiltAndroid = "2.57"
+hiltAndroid = "2.57.1"
 hiltCompiler = "1.2.0"
 kotlin = "2.2.10"
 coreKtx = "1.17.0"
