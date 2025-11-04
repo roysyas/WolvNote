@@ -6,9 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -17,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import com.roys.wolvnote.R
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.roys.wolvnote.common.Constants
 import com.roys.wolvnote.presentation.note.component.FloatingItemButton
@@ -96,7 +94,7 @@ fun CustomFloatingButton(
             }
         ) {
             Icon(
-                imageVector = if(state.isToggle) Icons.Default.Close else Icons.Default.Add,
+                painter = if(state.isToggle) painterResource(R.drawable.close) else painterResource(R.drawable.add),
                 contentDescription = addNotes,
                 tint = MaterialTheme.colorScheme.secondary
             )

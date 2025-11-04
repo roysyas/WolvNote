@@ -1,5 +1,6 @@
 package com.roys.wolvnote.presentation.auth.settingpassword
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,7 +31,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.roys.wolvnote.R
 import com.roys.wolvnote.presentation.ui.util.Screen
@@ -122,11 +123,15 @@ fun SettingPasswordScreen(
         OutlinedButton(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(8.dp),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
             onClick = {
                 viewModel.handleEvent(SettingPasswordEvent.InsertPassword)
             }
         ) {
-            Text(text = submit)
+            Text(
+                text = submit,
+                color = MaterialTheme.colorScheme.primary
+            )
         }
     }
 }

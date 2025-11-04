@@ -1,5 +1,6 @@
 package com.roys.wolvnote.presentation.auth.login
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -99,11 +100,12 @@ fun LoginComponent(
         OutlinedButton(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(8.dp),
+            border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary),
             onClick = {
                 onClick()
             }
         ) {
-            Text(submit)
+            Text(submit, color = MaterialTheme.colorScheme.primary)
         }
     }
 

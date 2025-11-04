@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +17,7 @@ import com.roys.wolvnote.R
 import com.roys.wolvnote.common.Constants
 import com.roys.wolvnote.data.database.NoteTable
 import com.roys.wolvnote.presentation.note.component.ConfirmationDialog
+import com.roys.wolvnote.presentation.ui.composableicon.DeleteIcon
 import com.roys.wolvnote.presentation.ui.util.Screen
 
 @Composable
@@ -34,7 +33,7 @@ fun NoteItem(
     when (showDialog) {
         true -> ConfirmationDialog(
             message = confirmationMessage,
-            imageVector = Icons.Default.Delete,
+            imageVector = DeleteIcon(),
             onDismiss = {
                 showDialog = false
                 deletedItem = NoteTable().noteId
