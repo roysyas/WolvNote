@@ -2,14 +2,11 @@ package com.roys.wolvnote.presentation.note.mainpage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.roys.wolvnote.common.DateTimeHelper
 import com.roys.wolvnote.common.Resource
 import com.roys.wolvnote.data.database.NoteTable
 import com.roys.wolvnote.domain.usecase.DeleteNoteUseCase
 import com.roys.wolvnote.domain.usecase.GetNoteUseCase
 import com.roys.wolvnote.domain.usecase.GetNotesUseCase
-import com.roys.wolvnote.domain.usecase.LocationUseCase
-import com.roys.wolvnote.domain.usecase.WeatherUseCase
 import com.roys.wolvnote.presentation.ui.util.SnackBarController
 import com.roys.wolvnote.presentation.ui.util.SnackBarError
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,8 +23,6 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getNotesUseCase: GetNotesUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
-    private val weatherUseCase: WeatherUseCase,
-    private val locationUseCase: LocationUseCase,
     private val getNoteUseCase: GetNoteUseCase
 ): ViewModel() {
 
@@ -43,7 +38,6 @@ class HomeViewModel @Inject constructor(
             is HomeEvent.OnToggle -> onToggle(viewEvent.toggle)
             is HomeEvent.OnRefresh -> getNotes()
             is HomeEvent.OnDelete -> prepareDeleteNote(viewEvent.item)
-            is HomeEvent.RequestPermission -> fetchLocation(viewEvent.granted)
         }
     }
 
@@ -99,7 +93,7 @@ class HomeViewModel @Inject constructor(
                     if(result.data.isNullOrEmpty()){
                         _state.update {
                             it.copy(
-                                isEmpty = true
+                                noteList = emptyList()
                             )
                         }
                     }else{
@@ -147,59 +141,5 @@ class HomeViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
-    }
-
-    private fun fetchLocation(granted: Boolean){
-        _state.update {
-            it.copy(
-                isGranted = granted
-            )
-        }
-        if(granted){
-            viewModelScope.launch {
-                _state.update {
-                    it.copy(
-                        location = locationUseCase()
-                    )
-                }
-                getWeather()
-            }
-        }
-    }
-
-    private fun getWeather(){
-        val lat = _state.value.location?.latitude
-        val lng = _state.value.location?.longitude
-        val timezone = DateTimeHelper.getTimeZone()
-
-        lat?.let {
-            lng?.let {
-                weatherUseCase.invoke(lat, lng, timezone).onEach { result->
-                    when(result){
-                        is Resource.Error -> {
-                            _state.update {
-                                it.copy(
-                                    weatherError = result.message ?: "An unexpected error occurred"
-                                )
-                            }
-                        }
-                        is Resource.Loading -> {
-                            _state.update {
-                                it.copy(
-                                    weatherIsLoading = true
-                                )
-                            }
-                        }
-                        is Resource.Success -> {
-                            _state.update {
-                                it.copy(
-                                    currentWeather = result.data
-                                )
-                            }
-                        }
-                    }
-                }.launchIn(viewModelScope)
-            }
-        }
     }
 }
