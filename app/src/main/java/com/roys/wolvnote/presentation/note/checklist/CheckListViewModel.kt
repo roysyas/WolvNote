@@ -71,7 +71,7 @@ class CheckListViewModel @Inject constructor(
         }.toList()
         _state.update {
             it.copy(
-                checkListData = _state.value.checkListData.copy(items),
+                checkListData = _state.value.checkListData.copy(contentData = items),
             )
         }
     }
@@ -82,7 +82,7 @@ class CheckListViewModel @Inject constructor(
         }.toList()
         _state.update {
             it.copy(
-                checkListData = _state.value.checkListData.copy(items)
+                checkListData = _state.value.checkListData.copy(contentData = items)
             )
         }
     }
@@ -108,7 +108,7 @@ class CheckListViewModel @Inject constructor(
         }.toList()
         _state.update {
             it.copy(
-                checkListData = _state.value.checkListData.copy(items)
+                checkListData = _state.value.checkListData.copy(contentData = items)
             )
         }
     }
