@@ -99,7 +99,7 @@ class HomeViewModel @Inject constructor(
                     if(result.data.isNullOrEmpty()){
                         _state.update {
                             it.copy(
-                                isEmpty = true
+                                noteList = emptyList()
                             )
                         }
                     }else{
