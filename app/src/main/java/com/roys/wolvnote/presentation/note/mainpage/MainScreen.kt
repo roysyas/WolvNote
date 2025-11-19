@@ -21,7 +21,6 @@ import androidx.navigation.NavController
 import com.roys.wolvnote.R
 import com.roys.wolvnote.common.Constants
 import com.roys.wolvnote.presentation.note.mainpage.component.CustomFloatingButton
-import com.roys.wolvnote.presentation.note.mainpage.component.LocationPermission
 import com.roys.wolvnote.presentation.note.mainpage.component.NoteItem
 import com.roys.wolvnote.presentation.ui.util.Screen
 
@@ -33,13 +32,6 @@ fun MainScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val emptyNotes = stringResource(R.string.empty_notes)
-
-    LocationPermission(
-        isGranted = state.isGranted,
-        onGranted = {
-            viewModel.handleEvent(HomeEvent.RequestPermission(it))
-        }
-    )
 
     LaunchedEffect(key1 = Unit) {
         navController.currentBackStackEntry?.savedStateHandle?.getStateFlow(Constants.REFRESH, false)?.collect { result->
@@ -69,37 +61,14 @@ fun MainScreen(
             )
         }
 
-        Column {
-            state.currentWeather?.let {
-                Column(
-                    modifier = Modifier
-                        .padding(0.dp, 0.dp, 8.dp, 8.dp)
-                        .align(Alignment.End)
-                        .fillMaxWidth()
-                ) {
-                    Text(
-                        text = it.temperature,
-                        color = MaterialTheme.colorScheme.outlineVariant,
-                        modifier = Modifier
-                            .align(Alignment.End)
-                    )
-                    Text(
-                        text = it.weather,
-                        color = MaterialTheme.colorScheme.outlineVariant,
-                        modifier = Modifier
-                            .align(Alignment.End)
-                    )
+        if (state.noteList.isNotEmpty()) {
+            NoteItem(
+                listNoteTable = state.noteList,
+                navController = navController,
+                onDelete = { data ->
+                    viewModel.handleEvent(HomeEvent.OnDelete(data))
                 }
-            }
-            if (state.noteList.isNotEmpty()) {
-                NoteItem(
-                    listNoteTable = state.noteList,
-                    navController = navController,
-                    onDelete = { data ->
-                        viewModel.handleEvent(HomeEvent.OnDelete(data))
-                    }
-                )
-            }
+            )
         }
 
         Box(
