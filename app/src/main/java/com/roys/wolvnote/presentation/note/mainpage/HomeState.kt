@@ -1,6 +1,6 @@
 package com.roys.wolvnote.presentation.note.mainpage
 
-import com.roys.wolvnote.data.database.NoteTable
+import com.roys.wolvnote.domain.model.NoteTable
 
 data class HomeState(
     val isLoading: Boolean = false,

@@ -1,7 +1,7 @@
 package com.roys.wolvnote.data.repository
 
 import com.roys.wolvnote.data.database.PasswordDao
-import com.roys.wolvnote.data.database.PasswordTable
+import com.roys.wolvnote.domain.model.PasswordTable
 import com.roys.wolvnote.domain.repository.PasswordRepository
 import javax.inject.Inject
 

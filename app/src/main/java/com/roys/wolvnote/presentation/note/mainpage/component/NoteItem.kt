@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.roys.wolvnote.R
 import com.roys.wolvnote.common.Constants
-import com.roys.wolvnote.data.database.NoteTable
+import com.roys.wolvnote.domain.model.NoteTable
 import com.roys.wolvnote.presentation.note.component.ConfirmationDialog
 import com.roys.wolvnote.presentation.ui.composableicon.DeleteIcon
 import com.roys.wolvnote.presentation.ui.util.Screen

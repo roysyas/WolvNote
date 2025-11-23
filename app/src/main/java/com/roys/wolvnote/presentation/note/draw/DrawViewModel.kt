@@ -10,7 +10,7 @@ import com.roys.wolvnote.common.Constants
 import com.roys.wolvnote.common.DateTimeHelper
 import com.roys.wolvnote.common.ExportToImageFileHelper
 import com.roys.wolvnote.common.Resource
-import com.roys.wolvnote.data.database.NoteTable
+import com.roys.wolvnote.domain.model.NoteTable
 import com.roys.wolvnote.domain.model.DrawContentData
 import com.roys.wolvnote.domain.model.PathData
 import com.roys.wolvnote.domain.usecase.GetNoteUseCase
