@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.roys.wolvnote.common.DateTimeHelper
 import com.roys.wolvnote.common.Resource
-import com.roys.wolvnote.data.database.NoteTable
+import com.roys.wolvnote.domain.model.NoteTable
 import com.roys.wolvnote.domain.usecase.DeleteNoteUseCase
 import com.roys.wolvnote.domain.usecase.GetNoteUseCase
 import com.roys.wolvnote.domain.usecase.GetNotesUseCase

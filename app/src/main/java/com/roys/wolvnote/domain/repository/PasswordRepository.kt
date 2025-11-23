@@ -1,6 +1,6 @@
 package com.roys.wolvnote.domain.repository
 
-import com.roys.wolvnote.data.database.PasswordTable
+import com.roys.wolvnote.domain.model.PasswordTable
 
 interface PasswordRepository {
     suspend fun insertPassword(passwordTable: PasswordTable)

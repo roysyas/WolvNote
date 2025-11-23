@@ -1,7 +1,7 @@
 package com.roys.wolvnote.domain.usecase.password
 
 import com.roys.wolvnote.common.Resource
-import com.roys.wolvnote.data.database.PasswordTable
+import com.roys.wolvnote.domain.model.PasswordTable
 import com.roys.wolvnote.domain.repository.PasswordRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -1,7 +1,7 @@
 package com.roys.wolvnote.domain.usecase
 
 import com.roys.wolvnote.common.Resource
-import com.roys.wolvnote.data.database.NoteTable
+import com.roys.wolvnote.domain.model.NoteTable
 import com.roys.wolvnote.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

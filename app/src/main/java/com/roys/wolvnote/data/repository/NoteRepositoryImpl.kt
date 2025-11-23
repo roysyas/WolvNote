@@ -1,7 +1,7 @@
 package com.roys.wolvnote.data.repository
 
 import com.roys.wolvnote.data.database.NoteDao
-import com.roys.wolvnote.data.database.NoteTable
+import com.roys.wolvnote.domain.model.NoteTable
 import com.roys.wolvnote.domain.repository.NoteRepository
 import javax.inject.Inject
 

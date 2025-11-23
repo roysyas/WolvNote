@@ -7,7 +7,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.roys.wolvnote.data.database.AppDatabase
 import com.roys.wolvnote.data.database.PasswordDao
-import com.roys.wolvnote.data.database.PasswordTable
+import com.roys.wolvnote.domain.model.PasswordTable
 import com.roys.wolvnote.data.repository.PasswordRepositoryImpl
 import com.roys.wolvnote.domain.repository.PasswordRepository
 import kotlinx.coroutines.test.runTest

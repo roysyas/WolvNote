@@ -1,4 +1,4 @@
-package com.roys.wolvnote.data.database
+package com.roys.wolvnote.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

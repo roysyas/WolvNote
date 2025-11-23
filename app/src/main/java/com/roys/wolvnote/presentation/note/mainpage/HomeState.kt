@@ -1,7 +1,7 @@
 package com.roys.wolvnote.presentation.note.mainpage
 
 import android.location.Location
-import com.roys.wolvnote.data.database.NoteTable
+import com.roys.wolvnote.domain.model.NoteTable
 import com.roys.wolvnote.domain.model.CurrentWeather
 
 data class HomeState(

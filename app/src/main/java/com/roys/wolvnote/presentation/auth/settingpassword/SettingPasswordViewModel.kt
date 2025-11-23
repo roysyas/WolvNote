@@ -6,7 +6,7 @@ import com.roys.wolvnote.R
 import com.roys.wolvnote.common.Resource
 import com.roys.wolvnote.common.UiText
 import com.roys.wolvnote.common.encryptData
-import com.roys.wolvnote.data.database.PasswordTable
+import com.roys.wolvnote.domain.model.PasswordTable
 import com.roys.wolvnote.domain.usecase.password.InsertPasswordUseCase
 import com.roys.wolvnote.presentation.ui.util.SnackBarController
 import com.roys.wolvnote.presentation.ui.util.SnackBarError
